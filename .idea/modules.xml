@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Hello Core.iml" filepath="$PROJECT_DIR$/.idea/modules/Hello Core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/play-docker.iml" filepath="$PROJECT_DIR$/.idea/modules/play-docker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/play-docker-build.iml" filepath="$PROJECT_DIR$/.idea/modules/play-docker-build.iml" />
     </modules>
