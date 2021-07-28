@@ -1,6 +1,24 @@
-# Play REST API
+# Play Sandbox
 
-This is the example project for [Making a REST API in Play](http://developer.lightbend.com/guides/play-rest-api/index.html).
+Built off of the example project for [Making a REST API in Play](http://developer.lightbend.com/guides/play-rest-api/index.html), 
+this repo is just for testing out various aspects of the Play ecosystem from first principles. 
+
+## Database setup:
+For testing complex SQL queries with Anorm, I found [this](https://github.com/datacharmer/test_db) fake employees database that was created
+with the intent of testing applications and DB servers. The raw dump.sql of the entire DB can be found [here](https://www.dropbox.com/s/znmjrtlae6vt4zi/employees.sql?dl=0).
+
+The file is pretty large (~90MB), so it's being managed with git lfs
+
+Finally, in order to get a docker image up and running that links to a volume containing the data from the dump file, follow
+[these steps](https://stackoverflow.com/a/33397185/1751834). The basic idea seems to be that the mysql.volume `./docker/data:/docker-entrypoint-initdb.d`
+runs a script in the background and pulls in any dump files from the `./docker/data` directory. 
+
+To understand what's going on a bit better, check out the [docker-compose volumes](https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes) docs.
+
+**TODO:** the docker-compose file is a bit [old](https://docs.docker.com/compose/compose-file/compose-file-v2/#volumes_from), try updating it to version 3
+
+
+
 
 ## Appendix
 
