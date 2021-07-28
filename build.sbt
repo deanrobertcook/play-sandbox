@@ -16,7 +16,12 @@ lazy val root = (project in file("."))
       "net.codingwell" %% "scala-guice" % "4.2.6",
       "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
       "com.typesafe.play" %% "play-mailer" % playMailerVersion,
-      "com.typesafe.play" %% "play-mailer-guice" % playMailerVersion
+      "com.typesafe.play" %% "play-mailer-guice" % playMailerVersion,
+
+      //database
+      jdbc,
+      "mysql" % "mysql-connector-java" % "8.0.15",
+      "org.playframework.anorm" %% "anorm" % "2.6.10"
 
 ),
     scalacOptions ++= Seq(

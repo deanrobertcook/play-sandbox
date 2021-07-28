@@ -102,7 +102,7 @@ GET("/" ? q_?"sort=$sort" & q_?"count=${ int(count) }")
 
 SIRD is especially useful in a REST API where there can be many possible query parameters. Cake Solutions covers SIRD in more depth in a [fantastic blog post](http://www.cakesolutions.net/teamblogs/all-you-need-to-know-about-plays-routing-dsl).
 
-## Using a Controller
+## Using a db.Controller
 
 The `PostRouter` has a `PostController` injected into it through standard [JSR-330 dependency injection](https://github.com/google/guice/wiki/JSR330):
 
@@ -112,7 +112,7 @@ class PostRouter @Inject()(controller: PostController) extends SimpleRouter
 
 Before heading into the `PostController`, let's discuss how controllers work in Play.
 
-A controller [handles the work of processing](https://www.playframework.com/documentation/latest/ScalaActions)  the HTTP request into an HTTP response in the context of an Action: it's where page rendering and HTML form processing happen.  A controller extends [`play.api.mvc.BaseController`](https://www.playframework.com/documentation/latest/api/scala/index.html#play.api.mvc.BaseController), which contains a number of utility methods and constants for working with HTTP.  In particular, a `Controller` contains `Result` objects such as `Ok` and `Redirect`, and `HeaderNames` like `ACCEPT`.
+A controller [handles the work of processing](https://www.playframework.com/documentation/latest/ScalaActions)  the HTTP request into an HTTP response in the context of an Action: it's where page rendering and HTML form processing happen.  A controller extends [`play.api.mvc.BaseController`](https://www.playframework.com/documentation/latest/api/scala/index.html#play.api.mvc.BaseController), which contains a number of utility methods and constants for working with HTTP.  In particular, a `db.Controller` contains `Result` objects such as `Ok` and `Redirect`, and `HeaderNames` like `ACCEPT`.
 
 The methods in a controller consist of a method returning an [Action](https://www.playframework.com/documentation/latest/api/scala/index.html#play.api.mvc.Action).  The Action provides the "engine" to Play.
 
@@ -120,7 +120,7 @@ Using the action, the controller passes in a block of code that takes a [`Reques
 
 ### Handling GET Requests
 
-Here's a simple example of a Controller:
+Here's a simple example of a db.Controller:
 
 ```scala
 import javax.inject.Inject
