@@ -2,6 +2,9 @@ import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
 
+object Vsn {
+  val Scala = "2.13.5"
+}
 /**
   * Settings that are common to all the SBT projects
   */
@@ -10,7 +13,7 @@ object Common extends AutoPlugin {
   override def requires: sbt.Plugins = JvmPlugin
 
   override def projectSettings = Seq(
-    organization := "com.lightbend.restapi",
+    organization := "org.drc",
     version := "1.0-SNAPSHOT",
     resolvers += Resolver.typesafeRepo("releases"),
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
