@@ -3,6 +3,14 @@ import play.sbt.PlaySettings
 
 val playMailerVersion = "8.0.1"
 
+val baseSettings = Seq(
+  sources in(Compile, doc) := Seq.empty,
+  publishArtifact in(Compile, packageDoc) := false,
+  scalaVersion := Vsn.Scala,
+  //"-Xfatal-warnings",
+  scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-encoding", "utf8", "-Ymacro-annotations"),
+)
+
 lazy val root = (project in file("."))
   .enablePlugins(PlayService, PlayLayoutPlugin, Common)
   .settings(
@@ -32,8 +40,9 @@ lazy val root = (project in file("."))
   )
   .dependsOn(printMacro)
 
-lazy val printMacro = Project("print-macro", file("modules/print")).
-  settings(
+lazy val printMacro = Project("print-macro", file("modules/print"))
+  .settings(baseSettings)
+  .settings(
     libraryDependencies ++= Seq(
       "org.scala-lang" % "scala-reflect" % Vsn.Scala,
     )

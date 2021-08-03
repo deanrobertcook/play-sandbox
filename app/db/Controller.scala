@@ -2,6 +2,7 @@ package db
 
 import anorm.{Macro, RowParser, SqlStringInterpolation}
 import com.google.inject.Inject
+import macrotest.PrintMacro
 import play.api.mvc.{AbstractController, ControllerComponents}
 import play.api.db.Database
 
@@ -31,6 +32,11 @@ class Controller @Inject() (db: Database, cc: ControllerComponents) extends Abst
     }.take(5)
 
     Ok(s"Test database call $res")
+  }
+
+  def testMacro() = Action {
+    PrintMacro.printf("This is my macro %s", "Input")
+    Ok("Check the logs")
   }
 
 }
