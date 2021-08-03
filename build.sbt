@@ -4,18 +4,15 @@ import play.sbt.PlaySettings
 val playMailerVersion = "8.0.1"
 
 val baseSettings = Seq(
-  sources in(Compile, doc) := Seq.empty,
-  publishArtifact in(Compile, packageDoc) := false,
   scalaVersion := Vsn.Scala,
-  //"-Xfatal-warnings",
-  scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-encoding", "utf8", "-Ymacro-annotations"),
+  scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-encoding", "utf8", "-Ymacro-annotations", "-Xfatal-warnings"),
 )
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayService, PlayLayoutPlugin, Common)
+  .settings(baseSettings)
   .settings(
     name := "play-sandbox",
-    scalaVersion := Vsn.Scala,
     libraryDependencies ++= Seq(
       guice,
       "org.joda" % "joda-convert" % "2.2.1",
@@ -32,11 +29,6 @@ lazy val root = (project in file("."))
       "org.playframework.anorm" %% "anorm" % "2.6.10"
 
     ),
-    scalacOptions ++= Seq(
-      "-feature",
-      "-deprecation",
-      "-Xfatal-warnings"
-    )
   )
   .dependsOn(printMacro)
 

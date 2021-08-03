@@ -1,17 +1,19 @@
-package db
+package pack
 
 import anorm.{Macro, RowParser, SqlStringInterpolation}
-import com.google.inject.Inject
-import macrotest.PrintMacro
-import play.api.mvc.{AbstractController, ControllerComponents}
+import macrotest.IdentityMacro
 import play.api.db.Database
+import play.api.mvc.{AbstractController, ControllerComponents}
+
+import javax.inject.Inject
 
 case class Employee(firstName: String,
                     lastName: String,
                     departmentNumber: String)
 
-class Controller @Inject() (db: Database, cc: ControllerComponents) extends AbstractController(cc) {
+class Controller @Inject() (db: Database, cc: ControllerComponents, tl: TestClass) extends AbstractController(cc) {
 
+  @IdentityMacro
   val parser: RowParser[Employee] = Macro.parser[Employee]("first_name", "last_name", "dept_no")
 
   def dbCall() = Action {
@@ -35,8 +37,8 @@ class Controller @Inject() (db: Database, cc: ControllerComponents) extends Abst
   }
 
   def testMacro() = Action {
-    PrintMacro.printf("This is my macro %s", "Input")
-    Ok("Check the logs")
+//    val testClass = TestClass("INput")
+    Ok(s"TestClass output ${tl.simpleMethod()}")
   }
 
 }
