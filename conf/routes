@@ -1,4 +1,5 @@
-GET         /                       v1.test.MyController.main()
+GET         /                       v1.test.MyController.session()
+GET         /main                   v1.test.MyController.main()
 ->          /v1/posts               v1.post.PostRouter
 GET         /v1/test/:i             v1.test.MyController.index(i: String)
 GET         /email                  v1.test.MyController.sendEmail()

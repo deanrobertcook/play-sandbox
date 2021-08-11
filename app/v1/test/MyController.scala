@@ -3,6 +3,7 @@ package v1.test
 import com.google.inject.Inject
 import play.api.libs.mailer.{Email, MailerClient}
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
+import play.api.mvc.Cookie
 
 class MyController @Inject() (cc: ControllerComponents,
                               mailerClient: MailerClient) extends AbstractController(cc) {
@@ -23,8 +24,14 @@ class MyController @Inject() (cc: ControllerComponents,
     Ok(body)
   }
 
+  def session() = Action {
+    Redirect("/main")
+      .withSession("connected" -> "user@email.com")
+  }
+
   def main() = Action {
     Ok(views.html.pages.index())
+      .withCookies(Cookie("test", "binary-binoculars-batman"))
   }
 
 }
