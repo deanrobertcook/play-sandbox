@@ -4,11 +4,13 @@ import com.google.inject.Inject
 import play.api.libs.mailer.{Email, MailerClient}
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
 import play.api.mvc.Cookie
+import pack.LoggingAction
 
-class MyController @Inject() (cc: ControllerComponents,
+class MyController @Inject() (loggingAction: LoggingAction,
+                              cc: ControllerComponents,
                               mailerClient: MailerClient) extends AbstractController(cc) {
 
-  def index(i: String) = Action {
+  def index(i: String) = loggingAction {
     Ok(s"You asked for $i")
   }
 
