@@ -5,12 +5,14 @@ import play.api.libs.mailer.{Email, MailerClient}
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
 import play.api.mvc.Cookie
 import pack.LoggingAction
+import pack.UserAction
 
 class MyController @Inject() (loggingAction: LoggingAction,
+                              userAction: UserAction,
                               cc: ControllerComponents,
                               mailerClient: MailerClient) extends AbstractController(cc) {
 
-  def index(i: String) = loggingAction {
+  def index(i: String) = loggingAction.andThen(userAction) {
     Ok(s"You asked for $i")
   }
 
@@ -28,7 +30,7 @@ class MyController @Inject() (loggingAction: LoggingAction,
 
   def session() = Action {
     Redirect("/main")
-      .withSession("connected" -> "user@email.com")
+      .withSession("username" -> "test_user")
   }
 
   def main() = Action {
