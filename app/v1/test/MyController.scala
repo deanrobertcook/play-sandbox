@@ -34,6 +34,9 @@ class MyController @Inject() (loggingAction: LoggingAction,
   }
 
   def main() = Action {
+
+    \/
+
     Ok(views.html.pages.index())
       .withCookies(Cookie("test", "binary-binoculars-batman"))
   }

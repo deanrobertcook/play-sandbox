@@ -2,6 +2,7 @@ import sbt.Keys._
 import play.sbt.PlaySettings
 
 val playMailerVersion = "8.0.1"
+val scalazVersion = "7.2.32"
 
 val baseSettings = Seq(
   scalaVersion := Vsn.Scala,
@@ -15,6 +16,7 @@ lazy val root = (project in file("."))
     name := "play-sandbox",
     libraryDependencies ++= Seq(
       guice,
+      "org.scalaz" %% "scalaz-core" % scalazVersion,
       "org.joda" % "joda-convert" % "2.2.1",
       "net.logstash.logback" % "logstash-logback-encoder" % "6.2",
       "io.lemonlabs" %% "scala-uri" % "1.5.1",
