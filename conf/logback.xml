@@ -42,6 +42,8 @@
   <!-- Configure the Sentry appender, overriding the logging threshold to the WARN level -->
   <appender name="SENTRY" class="io.sentry.logback.SentryAppender">
     <options>
+      <environment>test</environment>
+<!--      <debug>true</debug>-->
       <dsn>https://da24cecfb73f477aa434e4d499f8386f@o947074.ingest.sentry.io/5922878</dsn>
     </options>
     <!-- Optionally change minimum Event level. Default for Events is ERROR -->
@@ -66,7 +68,10 @@
   <logger name="application" level="DEBUG" />
   <logger name="v1.post" level="TRACE" />
 
-  <root level="INFO">
+  <logger name="com.zaxxer.hikari.pool.HikariPool" level="INFO" />
+  <logger name="com.google.inject.internal.BytecodeGen" level="INFO" />
+
+  <root level="TRACE">
     <appender-ref ref="SENTRY" />
     <appender-ref ref="ASYNCFILE" />
     <appender-ref ref="ASYNCJSON" />
