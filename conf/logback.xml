@@ -39,6 +39,17 @@
     </encoder>
   </appender>
 
+  <!-- Configure the Sentry appender, overriding the logging threshold to the WARN level -->
+  <appender name="SENTRY" class="io.sentry.logback.SentryAppender">
+    <options>
+      <dsn>https://da24cecfb73f477aa434e4d499f8386f@o947074.ingest.sentry.io/5922878</dsn>
+    </options>
+    <!-- Optionally change minimum Event level. Default for Events is ERROR -->
+    <minimumEventLevel>WARN</minimumEventLevel>
+    <!-- Optionally change minimum Breadcrumbs level. Default for Breadcrumbs is INFO -->
+    <minimumBreadcrumbLevel>DEBUG</minimumBreadcrumbLevel>
+  </appender>
+
   <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
     <appender-ref ref="FILE" />
   </appender>
@@ -55,7 +66,8 @@
   <logger name="application" level="DEBUG" />
   <logger name="v1.post" level="TRACE" />
 
-  <root level="WARN">
+  <root level="INFO">
+    <appender-ref ref="SENTRY" />
     <appender-ref ref="ASYNCFILE" />
     <appender-ref ref="ASYNCJSON" />
     <appender-ref ref="ASYNCSTDOUT" />

@@ -25,6 +25,8 @@ lazy val root = (project in file("."))
       "com.typesafe.play" %% "play-mailer" % playMailerVersion,
       "com.typesafe.play" %% "play-mailer-guice" % playMailerVersion,
 
+      "io.sentry" % "sentry-logback" % "5.1.1",
+
       //database
       jdbc,
       "mysql" % "mysql-connector-java" % "8.0.15",

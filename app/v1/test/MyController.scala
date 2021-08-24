@@ -1,10 +1,11 @@
 package v1.test
 
 import com.google.inject.Inject
+import io.sentry.{Sentry, SentryLevel}
+import pack.{LoggingAction, UserAction}
+import play.api.Logging
 import play.api.libs.mailer.{Email, MailerClient}
-import play.api.mvc.{AbstractController, Action, ControllerComponents, Cookie, Result}
-import pack.LoggingAction
-import pack.UserAction
+import play.api.mvc.{AbstractController, ControllerComponents, Cookie, Result}
 import scalaz.{-\/, \/, \/-}
 
 import scala.util.Random
@@ -12,10 +13,22 @@ import scala.util.Random
 class MyController @Inject() (loggingAction: LoggingAction,
                               userAction: UserAction,
                               cc: ControllerComponents,
-                              mailerClient: MailerClient) extends AbstractController(cc) {
+                              mailerClient: MailerClient) extends AbstractController(cc) with Logging {
 
   def index(i: String) = loggingAction.andThen(userAction) {
     Ok(s"You asked for $i")
+  }
+
+  def sentry() = Action {
+    logger.info("Here's an info message")
+    logger.error("Something serious")
+    Sentry.captureMessage("Test message", SentryLevel.ERROR)
+    try throw new Exception("This is a thrown exception")
+    catch {
+      case e: Exception =>
+        Sentry.captureException(e)
+    }
+    Ok(s"Errors have been logged")
   }
 
   def sendEmail() = Action {
