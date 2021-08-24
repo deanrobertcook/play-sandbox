@@ -31,6 +31,15 @@ class MyController @Inject() (loggingAction: LoggingAction,
     Ok(s"Errors have been logged")
   }
 
+  def forbidden() = Action {
+    Forbidden
+  }
+
+  def exception() = Action {
+    throw new Exception("Something internal happened")
+    Ok("Shouldn't get here")
+  }
+
   def sendEmail() = Action {
     val body = views.html.emails.testEmail("Finn the Human")
     val email = Email(

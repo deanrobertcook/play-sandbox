@@ -44,7 +44,7 @@ class ErrorHandler(environment: Environment,
   override def onClientError(request: RequestHeader,
                              statusCode: Int,
                              message: String): Future[Result] = {
-    logger.debug(
+    logger.info(
       s"onClientError: statusCode = $statusCode, uri = ${request.uri}, message = $message")
 
     Future.successful {
