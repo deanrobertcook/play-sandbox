@@ -1,23 +1,33 @@
 package errors
 
 import com.google.inject.Inject
-import io.sentry.{Sentry, SentryLevel}
 import play.api.Logging
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.DurationInt
+import scala.concurrent.{Await, Future}
+
 class ErrorController @Inject() (cc: ControllerComponents) extends AbstractController(cc) with Logging {
 
   def sentry() = Action {
-    logger.info("Here's an info message")
-    logger.error("Something serious")
-    Sentry.captureMessage("Test message", SentryLevel.ERROR)
-    try throw new Exception("This is a thrown exception")
-    catch {
-      case e: Exception =>
-        Sentry.captureException(e)
-    }
+    val work = asyncWork(1)
+    logger.info("Info message 1")
+    logger.info("Info message 2")
+    logger.error("Something serious 1")
+
+    Await.result(work, 3.seconds)
     Ok(s"Errors have been logged")
+  }
+
+  def asyncWork(in: Int): Future[Int] = {
+    Future {
+      logger.info(s"Context message $in")
+      Thread.sleep(2000)
+      logger.error(s"Something serious async work: $in")
+      3
+    }
   }
 
   def forbidden() = Action {
