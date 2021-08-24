@@ -1,7 +1,6 @@
 package errors
 
 import com.google.inject.Inject
-import io.sentry.{Sentry, SentryOptions}
 import play.api.Logging
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
@@ -17,9 +16,6 @@ class ErrorController @Inject() (cc: ControllerComponents) extends AbstractContr
     logger.info("Info message 1")
     logger.info("Info message 2")
     logger.error("Something serious 1")
-
-    logger.info(Sentry.getCurrentHub.getOptions.getDsn)
-    logger.info(Sentry.getCurrentHub.getOptions.getEnvironment)
 
     Await.result(work, 3.seconds)
     Ok(s"Errors have been logged")
