@@ -1,6 +1,7 @@
 package errors
 
 import com.google.inject.Inject
+import io.sentry.Sentry
 import play.api.Logging
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
@@ -24,8 +25,10 @@ class ErrorController @Inject() (cc: ControllerComponents) extends AbstractContr
   def asyncWork(in: Int): Future[Int] = {
     Future {
       logger.info(s"Context message $in")
-      Thread.sleep(2000)
+      Thread.sleep(1000)
       logger.error(s"Something serious async work: $in")
+
+      Thread.sleep(1000)
       3
     }
   }

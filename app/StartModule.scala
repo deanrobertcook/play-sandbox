@@ -6,18 +6,12 @@ class StartModule(environment: Environment, config: Configuration) extends Abstr
 
   private val env = config.get[String]("environment")
 
-  def setupSentry() = {
-    println(s"WTF: ${Sentry.isEnabled}")
-    Sentry.init((options: SentryOptions) => {
-      options.setDsn(config.get[String]("sentry.dsn"))
-      options.setEnvironment(env)
-    })
-  }
-
   override def configure() = {
-    println("StartModule#configure")
-    if (env != "local") {
-      setupSentry()
-    }
+    val dsn = if (env == "local") "" else config.get[String]("sentry.dsn")
+    Sentry.init((options: SentryOptions) => {
+      options.setDsn(dsn)
+      options.setEnvironment(env)
+      options.setDebug(true)
+    })
   }
 }

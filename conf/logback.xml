@@ -41,9 +41,6 @@
 
   <!-- Configure the Sentry appender, overriding the logging threshold to the WARN level -->
   <appender name="SENTRY" class="io.sentry.logback.SentryAppender">
-    <options>
-      <dsn>https://da24cecfb73f477aa434e4d499f8386f@o947074.ingest.sentry.io/5922878</dsn>
-    </options>
     <!-- Optionally change minimum Event level. Default for Events is ERROR -->
     <minimumEventLevel>ERROR</minimumEventLevel>
     <!-- Optionally change minimum Breadcrumbs level. Default for Breadcrumbs is INFO -->
